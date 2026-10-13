@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mr. Johnson's Class</title>
+<meta name="description" content="Mr. Johnson's Class – Learn. Explore. Erupt with ideas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--lava1:#ff3d00;--lava2:#ff9100;--lava3:#ffd54f;--rock:#16110f;--rock2:#241b17;--text:#f6ece4;--muted:#c9b4a6}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--text);background:var(--rock);line-height:1.6;overflow-x:hidden;
+ background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,.025) 0 2px,transparent 3px),radial-gradient(circle at 70% 80%,rgba(0,0,0,.35) 0 3px,transparent 4px),linear-gradient(160deg,#1c1512,#0e0a09);
+ background-size:23px 23px,37px 37px,auto}
+h1,h2,h3{font-family:'Bungee',Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:1.1}
+a{color:var(--lava3)}
+#embers{position:fixed;inset:0;pointer-events:none;z-index:1}
+nav{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:1.4rem;flex-wrap:wrap;padding:.7rem 1rem;background:rgba(14,10,9,.92);border-bottom:1px solid #ff6d0033}
+nav a{color:var(--muted);text-decoration:none;font-weight:700;font-size:.95rem}
+nav a:hover{color:var(--lava2)}
+.hero{position:relative;min-height:calc(100vh - 44px);min-height:calc(100svh - 44px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:9vh 1.2rem 0;overflow:hidden;
+ background:radial-gradient(ellipse 60% 45% at 50% 100%,rgba(255,80,0,.45),transparent 70%),radial-gradient(ellipse at 50% 0%,#2a0f08,transparent 60%)}
+.hero-text{position:relative;z-index:3}
+.hero h1{font-size:clamp(2.4rem,8vw,5.6rem);background:linear-gradient(180deg,var(--lava3),var(--lava2) 45%,var(--lava1));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(255,90,0,.55));animation:pulse 4s ease-in-out infinite}
+.tagline{font-size:clamp(1.1rem,2.6vw,1.6rem);margin:.8rem 0 1.8rem;color:var(--text);font-weight:700}
+.tagline span{color:var(--lava2)}
+.btn{display:inline-block;font-family:'Bungee',sans-serif;font-size:clamp(1rem,2.4vw,1.3rem);padding:.9em 1.8em;border-radius:999px;color:#1a0800;text-decoration:none;background:linear-gradient(90deg,var(--lava1),var(--lava2),var(--lava3),var(--lava2),var(--lava1));background-size:300% 100%;box-shadow:0 0 22px rgba(255,110,0,.7),inset 0 -3px 0 rgba(0,0,0,.25);animation:flow 6s linear infinite,glow 2.4s ease-in-out infinite;transition:transform .2s}
+.btn:hover,.btn:focus-visible{transform:translateY(-3px) scale(1.04)}
+.volcano{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:max(100%,900px);height:min(58vh,470px);z-index:2;overflow:visible;overflow:visible}
+.fountain{animation:fount 1.6s ease-in-out infinite;transform-origin:50% 100%;transform-box:fill-box}
+.flow path{animation:dash 1.4s linear infinite}
+.puff{transform-box:fill-box;transform-origin:center;animation:puff 9s ease-in-out infinite}
+.p2{animation-delay:-3s}.p3{animation-delay:-6s;animation-duration:12s}.p4{animation-delay:-2s}
+.bx{animation:bx var(--d) linear infinite;animation-delay:var(--t)}
+.by{animation:by var(--d) infinite;animation-delay:var(--t);transform-box:fill-box}
+@keyframes fount{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.25) scaleX(.92)}}
+@keyframes dash{to{stroke-dashoffset:-36}}
+@keyframes puff{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(14px,-10px) scale(1.12)}}
+@keyframes bx{from{transform:translateX(0)}to{transform:translateX(var(--dx))}}
+@keyframes by{0%{transform:translateY(0);opacity:1;animation-timing-function:cubic-bezier(.2,.6,.4,1)}45%{transform:translateY(-130px);animation-timing-function:cubic-bezier(.6,0,.8,.4)}90%{opacity:1}100%{transform:translateY(120px);opacity:0}}
+@media (max-width:500px){.hide-sm,.rglow{display:none}.puff{animation:none}}
+.plume{animation:plume 5s ease-in-out infinite;transform-origin:50% 100%;transform-box:fill-box}
+.lavaglow{animation:glowop 3s ease-in-out infinite}
+.lava-river{position:relative;height:14px;background:linear-gradient(90deg,var(--lava1),var(--lava2),var(--lava3),var(--lava2),var(--lava1));background-size:200% 100%;animation:flow 5s linear infinite;box-shadow:0 0 25px var(--lava1),0 0 60px rgba(255,61,0,.5);z-index:3}
+section{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:4.5rem 1.2rem}
+section h2{font-size:clamp(1.8rem,4.5vw,2.8rem);text-align:center;margin-bottom:2rem;color:var(--lava2);text-shadow:0 0 16px rgba(255,90,0,.5)}
+.card{background:linear-gradient(160deg,var(--rock2),#120d0b);border:1px solid #ff6d0040;border-radius:18px;padding:1.6rem;box-shadow:0 10px 30px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.04);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:linear-gradient(90deg,var(--lava1),var(--lava3),var(--lava1));background-size:200% 100%;animation:flow 4s linear infinite}
+.game{display:grid;grid-template-columns:auto 1fr;gap:1.6rem;align-items:center;max-width:820px;margin:0 auto}
+.game-icon{font-size:4rem;width:110px;height:110px;display:grid;place-items:center;border-radius:22px;background:radial-gradient(circle,#ff6d00,#7a1a00);box-shadow:0 0 30px rgba(255,90,0,.6)}
+.game h3{font-size:1.6rem;color:var(--lava3);margin-bottom:.4rem}
+.game p{color:var(--muted);margin-bottom:1rem}
+.note{display:inline-block;background:#ff6d0018;border:1px dashed #ff9100aa;border-radius:10px;padding:.5rem .8rem;font-size:.95rem;color:var(--text)}
+.btn.small{font-size:.95rem;padding:.7em 1.4em;margin-top:1rem}
+.news{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem}
+.news .date{font-size:.85rem;color:var(--lava2);font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.news h3{font-size:1.2rem;margin:.4rem 0 .6rem;color:var(--text)}
+.news p{color:var(--muted)}
+.about{display:grid;grid-template-columns:200px 1fr;gap:2rem;align-items:center}
+.avatar{width:200px;height:200px;border-radius:50%;display:grid;place-items:center;font-family:'Bungee';font-size:3.5rem;color:#1a0800;background:radial-gradient(circle at 40% 35%,var(--lava3),var(--lava1) 70%);box-shadow:0 0 40px rgba(255,90,0,.5)}
+.about p{color:var(--muted);margin-bottom:.8rem}
+.placeholder{outline:2px dashed #ffd54f55;outline-offset:4px;border-radius:4px}
+footer{position:relative;z-index:2;text-align:center;padding:2.5rem 1rem 3rem;color:var(--muted);border-top:1px solid #ff6d0033;background:#0b0807}
+footer strong{color:var(--lava2)}
+@keyframes flow{to{background-position:300% 0}}
+@keyframes glow{50%{box-shadow:0 0 40px rgba(255,140,0,.95),inset 0 -3px 0 rgba(0,0,0,.25)}}
+@keyframes pulse{50%{filter:drop-shadow(0 0 30px rgba(255,120,0,.85))}}
+@keyframes plume{0%,100%{transform:scaleY(1);opacity:.85}50%{transform:scaleY(1.12);opacity:1}}
+@keyframes glowop{50%{opacity:.55}}
+@media (max-width:700px){
+ .game,.about{grid-template-columns:1fr;text-align:center}
+ .game-icon,.avatar{margin:0 auto}
+ .avatar{width:150px;height:150px;font-size:2.6rem}
+ nav{gap:.9rem}nav a{font-size:.85rem}
+ .hero{padding-top:9vh;min-height:auto;height:680px}
+ .volcano{width:1100px;height:auto}
+}
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+ #embers{display:none}
+}
+</style>
+</head>
+<body>
+<canvas id="embers" aria-hidden="true"></canvas>
+<nav aria-label="Main"><a href="#games">Games</a><a href="#news">News</a><a href="#about">About</a></nav>
+
+<header class="hero">
+ <div class="hero-text">
+  <h1>Mr. Johnson's Class</h1>
+  <p class="tagline">Learn. Explore. <span>Erupt with ideas.</span></p>
+  <a class="btn" href="https://mbj808.github.io/table-rush/">🌋 Play Mad Facts</a>
+ </div>
+ <svg class="volcano" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <defs>
+   <linearGradient id="lava" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".35" stop-color="#ffb300"/><stop offset=".75" stop-color="#ff5a00"/><stop offset="1" stop-color="#c41a00"/></linearGradient>
+   <linearGradient id="rockg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e221d"/><stop offset="1" stop-color="#0a0706"/></linearGradient>
+   <linearGradient id="farg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a1510"/><stop offset="1" stop-color="#140908"/></linearGradient>
+   <radialGradient id="litL" cx=".5" cy=".3" r=".6"><stop offset="0" stop-color="#ff6a00" stop-opacity=".55"/><stop offset="1" stop-color="#ff3d00" stop-opacity="0"/></radialGradient>
+   <radialGradient id="crater" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff0a0"/><stop offset=".3" stop-color="#ff9100" stop-opacity=".85"/><stop offset="1" stop-color="#ff3d00" stop-opacity="0"/></radialGradient>
+   <radialGradient id="smokeg" cx=".5" cy=".8" r=".7"><stop offset="0" stop-color="#8a3a14"/><stop offset=".5" stop-color="#3b2620"/><stop offset="1" stop-color="#1c1513" stop-opacity="0"/></radialGradient>
+   <radialGradient id="pool" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe082"/><stop offset=".4" stop-color="#ff8f00"/><stop offset="1" stop-color="#d32f00" stop-opacity="0"/></radialGradient>
+   <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a0f05" stop-opacity="0"/><stop offset="1" stop-color="#7a1505" stop-opacity=".6"/></linearGradient>
+   <filter id="blur6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <rect x="0" y="180" width="1200" height="160" fill="url(#sky)"/>
+  <!-- smoke clouds -->
+  <filter id="blur14" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
+  <g class="smoke" filter="url(#blur14)">
+   <ellipse class="puff p1" cx="540" cy="85" rx="120" ry="60" fill="url(#smokeg)"/>
+   <ellipse class="puff p2" cx="680" cy="60" rx="150" ry="70" fill="url(#smokeg)"/>
+   <ellipse class="puff p3" cx="590" cy="15" rx="190" ry="70" fill="url(#smokeg)"/>
+   <ellipse class="puff p4" cx="760" cy="10" rx="160" ry="60" fill="url(#smokeg)"/>
+   <ellipse class="puff p1" cx="450" cy="30" rx="130" ry="50" fill="url(#smokeg)"/>
+   <ellipse cx="600" cy="120" rx="90" ry="30" fill="#ff7a1a" opacity=".55"/>
+  </g>
+  <!-- far range -->
+  <path d="M0 300 L60 262 L95 275 L150 230 L190 252 L240 214 L285 240 L330 222 L370 248 L410 236 L450 260 L500 250 L700 250 L760 242 L800 226 L850 250 L890 220 L940 244 L985 210 L1030 238 L1080 222 L1130 254 L1200 236 L1200 420 L0 420Z" fill="url(#farg)" opacity=".9"/>
+  <ellipse class="lavaglow" cx="600" cy="140" rx="200" ry="110" fill="url(#crater)" opacity=".8"/>
+  <!-- fountain -->
+  <g class="fountain">
+   <path d="M566 150 C560 120 575 95 585 50 C592 85 596 100 600 30 C606 95 612 80 618 45 C624 95 640 120 634 150Z" fill="url(#lava)"/>
+   <path d="M586 150 C584 120 594 100 600 70 C606 100 616 120 614 150Z" fill="#fff6c8" opacity=".85"/>
+  </g>
+  <g class="bombs" fill="#ffd54f" style="filter:drop-shadow(0 0 4px #ff6a00)">
+   <g class="bx" style="--dx:-150px;--d:2.4s;--t:-0s"><circle class="by" cx="600" cy="140" r="6.4"/></g>
+   <g class="bx" style="--dx:130px;--d:2.1s;--t:.5s"><circle class="by" cx="600" cy="140" r="5.6"/></g>
+   <g class="bx" style="--dx:-70px;--d:1.8s;--t:-1.1s"><circle class="by" cx="600" cy="140" r="4.8"/></g>
+   <g class="bx" style="--dx:200px;--d:2.7s;--t:-1.6s"><circle class="by" cx="600" cy="140" r="7.2"/></g>
+   <g class="bx hide-sm" style="--dx:-220px;--d:2.9s;--t:.8s"><circle class="by" cx="600" cy="140" r="4.8"/></g>
+   <g class="bx hide-sm" style="--dx:60px;--d:1.7s;--t:-2s"><circle class="by" cx="600" cy="140" r="4.0"/></g>
+   <g class="bx hide-sm" style="--dx:-30px;--d:2.2s;--t:-1.4s"><circle class="by" cx="600" cy="140" r="4.0"/></g>
+   <g class="bx hide-sm" style="--dx:95px;--d:2.5s;--t:.2s"><circle class="by" cx="600" cy="140" r="4.8"/></g>
+  </g>
+  <!-- main craggy volcano -->
+  <path d="M0 420 L0 352 L70 338 L110 345 L170 318 L215 322 L270 296 L310 300 L350 270 L380 276 L420 240 L445 246 L470 214 L495 205 L515 178 L540 162 L556 150 L572 154 L590 146 L610 148 L628 144 L646 154 L662 158 L688 182 L700 178 L728 212 L752 220 L780 252 L806 256 L840 284 L880 290 L920 314 L975 318 L1030 340 L1090 336 L1150 352 L1200 348 L1200 420Z" fill="url(#rockg)"/>
+  <!-- glow-lit slopes -->
+  <path d="M470 214 L495 205 L515 178 L540 162 L556 150 L572 154 L590 146 L610 148 L628 144 L646 154 L662 158 L688 182 L700 178 L728 212 L752 220 L720 260 L600 230 L480 260Z" fill="url(#litL)"/>
+  <!-- ridge highlights -->
+  
+  
+  <!-- lava rivers: glow + flowing core -->
+  <g class="rivers" fill="none" stroke-linecap="round" stroke-linejoin="round">
+   <g stroke="#ff4500" stroke-width="12" opacity=".45" filter="url(#blur6)" class="rglow">
+    <path d="M585 152 L570 190 L560 230 L540 262 L530 300 L505 340 L495 395"/>
+    <path d="M560 230 L590 270 L585 320 L600 395"/>
+    <path d="M622 150 L640 185 L660 220 L690 255 L700 300 L730 340 L745 395"/>
+    <path d="M690 255 L655 300 L650 350"/>
+   </g>
+   <g stroke="#ff7a00" stroke-width="5">
+    <path d="M585 152 L570 190 L560 230 L540 262 L530 300 L505 340 L495 395"/>
+    <path d="M560 230 L590 270 L585 320 L600 395" stroke-width="3.5"/>
+    <path d="M622 150 L640 185 L660 220 L690 255 L700 300 L730 340 L745 395"/>
+    <path d="M690 255 L655 300 L650 350" stroke-width="3"/>
+   </g>
+   <g class="flow" stroke="#ffe680" stroke-width="2.4" stroke-dasharray="14 22">
+    <path d="M585 152 L570 190 L560 230 L540 262 L530 300 L505 340 L495 395"/>
+    <path d="M560 230 L590 270 L585 320 L600 395" stroke-width="1.8"/>
+    <path d="M622 150 L640 185 L660 220 L690 255 L700 300 L730 340 L745 395"/>
+    <path d="M690 255 L655 300 L650 350" stroke-width="1.6"/>
+   </g>
+  </g>
+  <!-- crater rim glow -->
+  <path class="lavaglow" d="M556 150 L572 154 L590 146 L610 148 L628 144 L646 154 L630 160 L570 160Z" fill="#ffb300"/>
+  <!-- foreground + lava lake -->
+  <path d="M0 420 L0 392 L120 380 L230 398 L380 388 L460 400 L800 400 L900 384 L1040 396 L1200 384 L1200 420Z" fill="#070504"/>
+  <ellipse class="lavaglow" cx="620" cy="402" rx="260" ry="26" fill="url(#pool)"/>
+  <ellipse cx="620" cy="404" rx="170" ry="10" fill="#ffd54f" opacity=".75"/>
+</svg>
+</header>
+<div class="lava-river" aria-hidden="true"></div>
+
+<main>
+<section id="games">
+ <h2>Games</h2>
+ <div class="card game">
+  <div class="game-icon" aria-hidden="true">🔥</div>
+  <div>
+   <h3>Mad Facts Challenge</h3>
+   <p>Race the lava! Answer math facts fast to keep the eruption going and beat your best score.</p>
+   <span class="note">🔓 More mini-games unlock <strong>inside Mad Facts</strong> as you earn rewards.</span><br>
+   <a class="btn small" href="https://mbj808.github.io/table-rush/">Play Mad Facts</a>
+  </div>
+ </div>
+</section>
+
+<section id="news">
+ <h2>Class News</h2>
+ <!-- EDIT ME: Copy/paste an <article> block to add news. -->
+ <div class="news">
+  <article class="card"><div class="date">[Date]</div><h3>[Announcement title]</h3><p>[Placeholder: write your announcement here.]</p></article>
+  <article class="card"><div class="date">[Date]</div><h3>[Upcoming event]</h3><p>[Placeholder: field trip, project due date, or class event.]</p></article>
+  <article class="card"><div class="date">[Date]</div><h3>[Reminder]</h3><p>[Placeholder: homework, supplies, or a shout-out.]</p></article>
+ </div>
+</section>
+
+<section id="about">
+ <h2>About Mr. Johnson</h2>
+ <div class="card about">
+  <div class="avatar" aria-hidden="true">MJ</div>
+  <div>
+   <!-- EDIT ME: replace placeholder text -->
+   <p class="placeholder">[Placeholder: A short welcome from Mr. Johnson – grade level, school, and what makes this class special.]</p>
+   <p class="placeholder">[Placeholder: A fun fact or favorite thing about teaching in Hawaiʻi.]</p>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <p>© 2026 <strong>Mr. Johnson's Class</strong></p>
+ <p>Contact: [Contact info placeholder]</p>
+</footer>
+
+<script>
+(function(){
+ if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ var c=document.getElementById('embers'),x=c.getContext('2d'),P=[],w,h,dpr;
+ function size(){dpr=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';x.setTransform(dpr,0,0,dpr,0,0);
+  var n=w<500?18:w<1000?40:70;while(P.length<n)P.push(mk(true));P.length=n;}
+ function mk(r){return{x:Math.random()*w,y:r?Math.random()*h:h+10,s:Math.random()*2.2+.8,v:Math.random()*.8+.3,d:Math.random()*.6-.3,l:Math.random()}}
+ addEventListener('resize',size);size();
+ var run=true;document.addEventListener('visibilitychange',function(){run=!document.hidden;if(run)requestAnimationFrame(t)});
+ function t(){if(!run)return;x.clearRect(0,0,w,h);
+  for(var i=0;i<P.length;i++){var p=P[i];p.y-=p.v;p.x+=p.d+Math.sin(p.y/40)*.3;p.l+=.01;
+   if(p.y<-10)P[i]=mk(false);
+   var a=.5+.5*Math.sin(p.l*6);x.fillStyle='rgba(255,'+(120+(a*100|0))+',0,'+(.4+a*.5)+')';
+   x.beginPath();x.arc(p.x,p.y,p.s,0,6.283);x.fill();}
+  requestAnimationFrame(t);}
+ requestAnimationFrame(t);
+})();
+</script>
+<script data-goatcounter="https://mbj808.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
