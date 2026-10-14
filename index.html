@@ -5,18 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mr. Johnson's Class</title>
 <meta name="description" content="Mr. Johnson's Class – Learn. Explore. Erupt with ideas.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: 'Bungee';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/bungee-400.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/nunito-400.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/nunito-700.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(assets/nunito-900.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 :root{--lava1:#ff3d00;--lava2:#ff9100;--lava3:#ffd54f;--rock:#16110f;--rock2:#241b17;--text:#f6ece4;--muted:#c9b4a6}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Nunito',system-ui,sans-serif;color:var(--text);background:var(--rock);line-height:1.6;overflow-x:hidden;
+html{background:#120c0a}
+body{background:transparent!important;font-family:'Nunito',system-ui,sans-serif;color:var(--text);background:var(--rock);line-height:1.6;overflow-x:hidden;
  background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,.025) 0 2px,transparent 3px),radial-gradient(circle at 70% 80%,rgba(0,0,0,.35) 0 3px,transparent 4px),linear-gradient(160deg,#1c1512,#0e0a09);
  background-size:23px 23px,37px 37px,auto}
 h1,h2,h3{font-family:'Bungee',Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:1.1}
 a{color:var(--lava3)}
+.bg{position:fixed;inset:0;z-index:-2;background:#120c0a url(assets/bg-poster.jpg) center/cover no-repeat}
+.bgvideo{width:100%;height:100%;object-fit:cover;display:block}
+.bg-overlay{position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(10,6,5,.7) 0%,rgba(10,6,5,.3) 50%,rgba(10,6,5,.6) 75%,rgba(10,6,5,.85) 100%)}
+main{background:linear-gradient(180deg,rgba(14,10,9,.55),rgba(14,10,9,.8))}
+.tagline{text-shadow:0 2px 10px #000,0 0 4px #000}
+.hero-text::before{content:"";position:absolute;inset:-12% -18%;z-index:-1;background:radial-gradient(ellipse at center,rgba(8,4,3,.72),rgba(8,4,3,0) 70%);pointer-events:none}
 #embers{position:fixed;inset:0;pointer-events:none;z-index:1}
 nav{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:1.4rem;flex-wrap:wrap;padding:.7rem 1rem;background:rgba(14,10,9,.92);border-bottom:1px solid #ff6d0033}
 nav a{color:var(--muted);text-decoration:none;font-weight:700;font-size:.95rem}
@@ -81,10 +117,13 @@ footer strong{color:var(--lava2)}
 @media (prefers-reduced-motion:reduce){
  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
  #embers{display:none}
+ .bgvideo{display:none}
 }
 </style>
 </head>
 <body>
+<div class="bg" aria-hidden="true"><video class="bgvideo" autoplay muted loop playsinline preload="auto" poster="assets/bg-poster.jpg"><source src="assets/bg.mp4" type="video/mp4"></video></div>
+<div class="bg-overlay" aria-hidden="true"></div>
 <canvas id="embers" aria-hidden="true"></canvas>
 <nav aria-label="Main"><a href="#games">Games</a><a href="#news">News</a><a href="#about">About</a></nav>
 
@@ -94,82 +133,6 @@ footer strong{color:var(--lava2)}
   <p class="tagline">Learn. Explore. <span>Erupt with ideas.</span></p>
   <a class="btn" href="https://mbj808.github.io/table-rush/">🌋 Play Mad Facts</a>
  </div>
- <svg class="volcano" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-  <defs>
-   <linearGradient id="lava" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".35" stop-color="#ffb300"/><stop offset=".75" stop-color="#ff5a00"/><stop offset="1" stop-color="#c41a00"/></linearGradient>
-   <linearGradient id="rockg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e221d"/><stop offset="1" stop-color="#0a0706"/></linearGradient>
-   <linearGradient id="farg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a1510"/><stop offset="1" stop-color="#140908"/></linearGradient>
-   <radialGradient id="litL" cx=".5" cy=".3" r=".6"><stop offset="0" stop-color="#ff6a00" stop-opacity=".55"/><stop offset="1" stop-color="#ff3d00" stop-opacity="0"/></radialGradient>
-   <radialGradient id="crater" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff0a0"/><stop offset=".3" stop-color="#ff9100" stop-opacity=".85"/><stop offset="1" stop-color="#ff3d00" stop-opacity="0"/></radialGradient>
-   <radialGradient id="smokeg" cx=".5" cy=".8" r=".7"><stop offset="0" stop-color="#8a3a14"/><stop offset=".5" stop-color="#3b2620"/><stop offset="1" stop-color="#1c1513" stop-opacity="0"/></radialGradient>
-   <radialGradient id="pool" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe082"/><stop offset=".4" stop-color="#ff8f00"/><stop offset="1" stop-color="#d32f00" stop-opacity="0"/></radialGradient>
-   <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a0f05" stop-opacity="0"/><stop offset="1" stop-color="#7a1505" stop-opacity=".6"/></linearGradient>
-   <filter id="blur6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
-  </defs>
-  <rect x="0" y="180" width="1200" height="160" fill="url(#sky)"/>
-  <!-- smoke clouds -->
-  <filter id="blur14" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
-  <g class="smoke" filter="url(#blur14)">
-   <ellipse class="puff p1" cx="540" cy="85" rx="120" ry="60" fill="url(#smokeg)"/>
-   <ellipse class="puff p2" cx="680" cy="60" rx="150" ry="70" fill="url(#smokeg)"/>
-   <ellipse class="puff p3" cx="590" cy="15" rx="190" ry="70" fill="url(#smokeg)"/>
-   <ellipse class="puff p4" cx="760" cy="10" rx="160" ry="60" fill="url(#smokeg)"/>
-   <ellipse class="puff p1" cx="450" cy="30" rx="130" ry="50" fill="url(#smokeg)"/>
-   <ellipse cx="600" cy="120" rx="90" ry="30" fill="#ff7a1a" opacity=".55"/>
-  </g>
-  <!-- far range -->
-  <path d="M0 300 L60 262 L95 275 L150 230 L190 252 L240 214 L285 240 L330 222 L370 248 L410 236 L450 260 L500 250 L700 250 L760 242 L800 226 L850 250 L890 220 L940 244 L985 210 L1030 238 L1080 222 L1130 254 L1200 236 L1200 420 L0 420Z" fill="url(#farg)" opacity=".9"/>
-  <ellipse class="lavaglow" cx="600" cy="140" rx="200" ry="110" fill="url(#crater)" opacity=".8"/>
-  <!-- fountain -->
-  <g class="fountain">
-   <path d="M566 150 C560 120 575 95 585 50 C592 85 596 100 600 30 C606 95 612 80 618 45 C624 95 640 120 634 150Z" fill="url(#lava)"/>
-   <path d="M586 150 C584 120 594 100 600 70 C606 100 616 120 614 150Z" fill="#fff6c8" opacity=".85"/>
-  </g>
-  <g class="bombs" fill="#ffd54f" style="filter:drop-shadow(0 0 4px #ff6a00)">
-   <g class="bx" style="--dx:-150px;--d:2.4s;--t:-0s"><circle class="by" cx="600" cy="140" r="6.4"/></g>
-   <g class="bx" style="--dx:130px;--d:2.1s;--t:.5s"><circle class="by" cx="600" cy="140" r="5.6"/></g>
-   <g class="bx" style="--dx:-70px;--d:1.8s;--t:-1.1s"><circle class="by" cx="600" cy="140" r="4.8"/></g>
-   <g class="bx" style="--dx:200px;--d:2.7s;--t:-1.6s"><circle class="by" cx="600" cy="140" r="7.2"/></g>
-   <g class="bx hide-sm" style="--dx:-220px;--d:2.9s;--t:.8s"><circle class="by" cx="600" cy="140" r="4.8"/></g>
-   <g class="bx hide-sm" style="--dx:60px;--d:1.7s;--t:-2s"><circle class="by" cx="600" cy="140" r="4.0"/></g>
-   <g class="bx hide-sm" style="--dx:-30px;--d:2.2s;--t:-1.4s"><circle class="by" cx="600" cy="140" r="4.0"/></g>
-   <g class="bx hide-sm" style="--dx:95px;--d:2.5s;--t:.2s"><circle class="by" cx="600" cy="140" r="4.8"/></g>
-  </g>
-  <!-- main craggy volcano -->
-  <path d="M0 420 L0 352 L70 338 L110 345 L170 318 L215 322 L270 296 L310 300 L350 270 L380 276 L420 240 L445 246 L470 214 L495 205 L515 178 L540 162 L556 150 L572 154 L590 146 L610 148 L628 144 L646 154 L662 158 L688 182 L700 178 L728 212 L752 220 L780 252 L806 256 L840 284 L880 290 L920 314 L975 318 L1030 340 L1090 336 L1150 352 L1200 348 L1200 420Z" fill="url(#rockg)"/>
-  <!-- glow-lit slopes -->
-  <path d="M470 214 L495 205 L515 178 L540 162 L556 150 L572 154 L590 146 L610 148 L628 144 L646 154 L662 158 L688 182 L700 178 L728 212 L752 220 L720 260 L600 230 L480 260Z" fill="url(#litL)"/>
-  <!-- ridge highlights -->
-  
-  
-  <!-- lava rivers: glow + flowing core -->
-  <g class="rivers" fill="none" stroke-linecap="round" stroke-linejoin="round">
-   <g stroke="#ff4500" stroke-width="12" opacity=".45" filter="url(#blur6)" class="rglow">
-    <path d="M585 152 L570 190 L560 230 L540 262 L530 300 L505 340 L495 395"/>
-    <path d="M560 230 L590 270 L585 320 L600 395"/>
-    <path d="M622 150 L640 185 L660 220 L690 255 L700 300 L730 340 L745 395"/>
-    <path d="M690 255 L655 300 L650 350"/>
-   </g>
-   <g stroke="#ff7a00" stroke-width="5">
-    <path d="M585 152 L570 190 L560 230 L540 262 L530 300 L505 340 L495 395"/>
-    <path d="M560 230 L590 270 L585 320 L600 395" stroke-width="3.5"/>
-    <path d="M622 150 L640 185 L660 220 L690 255 L700 300 L730 340 L745 395"/>
-    <path d="M690 255 L655 300 L650 350" stroke-width="3"/>
-   </g>
-   <g class="flow" stroke="#ffe680" stroke-width="2.4" stroke-dasharray="14 22">
-    <path d="M585 152 L570 190 L560 230 L540 262 L530 300 L505 340 L495 395"/>
-    <path d="M560 230 L590 270 L585 320 L600 395" stroke-width="1.8"/>
-    <path d="M622 150 L640 185 L660 220 L690 255 L700 300 L730 340 L745 395"/>
-    <path d="M690 255 L655 300 L650 350" stroke-width="1.6"/>
-   </g>
-  </g>
-  <!-- crater rim glow -->
-  <path class="lavaglow" d="M556 150 L572 154 L590 146 L610 148 L628 144 L646 154 L630 160 L570 160Z" fill="#ffb300"/>
-  <!-- foreground + lava lake -->
-  <path d="M0 420 L0 392 L120 380 L230 398 L380 388 L460 400 L800 400 L900 384 L1040 396 L1200 384 L1200 420Z" fill="#070504"/>
-  <ellipse class="lavaglow" cx="620" cy="402" rx="260" ry="26" fill="url(#pool)"/>
-  <ellipse cx="620" cy="404" rx="170" ry="10" fill="#ffd54f" opacity=".75"/>
-</svg>
 </header>
 <div class="lava-river" aria-hidden="true"></div>
 
