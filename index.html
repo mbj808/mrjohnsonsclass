@@ -55,10 +55,11 @@ main{position:relative;z-index:2;background:#000}
 main *,main *::before,main *::after{animation:none!important}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 main #games{display:flex;justify-content:center;padding:4rem 1.2rem 5rem}
-.orb-btn{display:flex;align-items:center;justify-content:center;width:clamp(240px,80vw,400px);aspect-ratio:1;border-radius:50%;background:#000 url(assets/orb-button.webp) center/cover no-repeat;text-decoration:none;box-shadow:0 0 0 2px rgba(255,200,230,.25),0 0 40px rgba(255,170,220,.25);transition:transform .2s,box-shadow .2s}
+.orb-row{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem}
+.orb-btn{display:flex;align-items:center;justify-content:center;width:clamp(220px,78vw,300px);aspect-ratio:1;border-radius:50%;background:#000 url(assets/orb-button.webp) center/cover no-repeat;text-decoration:none;box-shadow:0 0 0 2px rgba(255,200,230,.25),0 0 40px rgba(255,170,220,.25);transition:transform .2s,box-shadow .2s}
 .orb-btn:hover{transform:scale(1.03);box-shadow:0 0 0 2px rgba(255,200,230,.5),0 0 60px rgba(255,170,220,.45)}
 .orb-btn:focus-visible{outline:3px solid var(--lava3);outline-offset:6px}
-.orb-title{font-family:'Bungee',Impact,sans-serif;font-size:clamp(1.5rem,6vw,2.3rem);line-height:1.15;text-align:center;color:#fff;padding:0 12%;text-shadow:0 2px 4px #000,0 0 12px #000,0 0 24px rgba(0,0,0,.9)}
+.orb-title{font-family:'Bungee',Impact,sans-serif;font-size:clamp(1.4rem,5.5vw,1.9rem);line-height:1.15;text-align:center;color:#fff;padding:0 12%;text-shadow:0 2px 4px #000,0 0 12px #000,0 0 24px rgba(0,0,0,.9)}
 .tagline{text-shadow:0 2px 10px #000,0 0 4px #000}
 .hero-text::before{content:"";position:absolute;inset:-12% -18%;z-index:-1;background:radial-gradient(ellipse at center,rgba(8,4,3,.72),rgba(8,4,3,0) 70%);pointer-events:none}
 #embers{position:fixed;inset:0;pointer-events:none;z-index:1}
@@ -146,9 +147,17 @@ footer strong{color:var(--lava2)}
 <main>
 <section id="games">
  <h2 class="sr-only">Games</h2>
- <a class="orb-btn" href="https://mbj808.github.io/table-rush/" aria-label="Play Mad Facts Challenge">
-  <span class="orb-title" aria-hidden="true">Mad Facts Challenge</span>
- </a>
+ <div class="orb-row">
+  <a class="orb-btn" href="https://mbj808.github.io/table-rush/" aria-label="Play Mad Facts Challenge">
+   <span class="orb-title" aria-hidden="true">Mad Facts Challenge</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/astronomy-orb.webp)" href="https://stellarium-web.org" target="_blank" rel="noopener" aria-label="Astronomy: open Stellarium Web (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Astronomy</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/vector-racing-orb.webp)" href="https://harmmade.com/vectorracer/" target="_blank" rel="noopener" aria-label="Play Vector Racing (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Vector Racing</span>
+  </a>
+ </div>
 </section>
 
 <!-- Class News and About are hidden until they have real content. Remove these comment markers and restore the nav links to bring them back.
