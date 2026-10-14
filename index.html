@@ -50,9 +50,15 @@ a{color:var(--lava3)}
 .bg{position:fixed;inset:0;z-index:-2;background:#120c0a url(assets/bg-poster.jpg) center/cover no-repeat}
 .bgvideo{width:100%;height:100%;object-fit:cover;display:block}
 .bg-overlay{position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(10,6,5,.7) 0%,rgba(10,6,5,.3) 50%,rgba(10,6,5,.6) 75%,rgba(10,6,5,.85) 100%)}
-main{position:relative;z-index:2;background:linear-gradient(rgba(12,6,10,.55),rgba(12,6,10,.55)),#1d1018 url(assets/orb-bg.webp) center/cover no-repeat}
-/* Below the divider nothing moves: static orb background, no card/button animations */
-main .card::before,main .btn{animation:none}
+main{position:relative;z-index:2;background:#000}
+/* Below the divider: black, nothing moves */
+main *,main *::before,main *::after{animation:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+main #games{display:flex;justify-content:center;padding:4rem 1.2rem 5rem}
+.orb-btn{display:flex;align-items:center;justify-content:center;width:clamp(240px,80vw,400px);aspect-ratio:1;border-radius:50%;background:#000 url(assets/orb-button.webp) center/cover no-repeat;text-decoration:none;box-shadow:0 0 0 2px rgba(255,200,230,.25),0 0 40px rgba(255,170,220,.25);transition:transform .2s,box-shadow .2s}
+.orb-btn:hover{transform:scale(1.03);box-shadow:0 0 0 2px rgba(255,200,230,.5),0 0 60px rgba(255,170,220,.45)}
+.orb-btn:focus-visible{outline:3px solid var(--lava3);outline-offset:6px}
+.orb-title{font-family:'Bungee',Impact,sans-serif;font-size:clamp(1.5rem,6vw,2.3rem);line-height:1.15;text-align:center;color:#fff;padding:0 12%;text-shadow:0 2px 4px #000,0 0 12px #000,0 0 24px rgba(0,0,0,.9)}
 .tagline{text-shadow:0 2px 10px #000,0 0 4px #000}
 .hero-text::before{content:"";position:absolute;inset:-12% -18%;z-index:-1;background:radial-gradient(ellipse at center,rgba(8,4,3,.72),rgba(8,4,3,0) 70%);pointer-events:none}
 #embers{position:fixed;inset:0;pointer-events:none;z-index:1}
@@ -127,7 +133,7 @@ footer strong{color:var(--lava2)}
 <div class="bg" aria-hidden="true"><video class="bgvideo" autoplay muted loop playsinline preload="auto" poster="assets/bg-poster.jpg"><source src="assets/bg.mp4" type="video/mp4"></video></div>
 <div class="bg-overlay" aria-hidden="true"></div>
 <canvas id="embers" aria-hidden="true"></canvas>
-<nav aria-label="Main"><a href="#games">Games</a><a href="#news">News</a><a href="#about">About</a></nav>
+<nav aria-label="Main"><a href="#games">Games</a></nav>
 
 <header class="hero">
  <div class="hero-text">
@@ -139,21 +145,16 @@ footer strong{color:var(--lava2)}
 
 <main>
 <section id="games">
- <h2>Games</h2>
- <div class="card game">
-  <div class="game-icon" aria-hidden="true">🔥</div>
-  <div>
-   <h3>Mad Facts Challenge</h3>
-   <p>Race the lava! Answer math facts fast to keep the eruption going and beat your best score.</p>
-   <span class="note">🔓 More mini-games unlock <strong>inside Mad Facts</strong> as you earn rewards.</span><br>
-   <a class="btn small" href="https://mbj808.github.io/table-rush/">Play Mad Facts</a>
-  </div>
- </div>
+ <h2 class="sr-only">Games</h2>
+ <a class="orb-btn" href="https://mbj808.github.io/table-rush/" aria-label="Play Mad Facts Challenge">
+  <span class="orb-title" aria-hidden="true">Mad Facts Challenge</span>
+ </a>
 </section>
 
+<!-- Class News and About are hidden until they have real content. Remove these comment markers and restore the nav links to bring them back.
 <section id="news">
  <h2>Class News</h2>
- <!-- EDIT ME: Copy/paste an <article> block to add news. -->
+ <!~~ EDIT ME: Copy/paste an <article> block to add news. ~~>
  <div class="news">
   <article class="card"><div class="date">[Date]</div><h3>[Announcement title]</h3><p>[Placeholder: write your announcement here.]</p></article>
   <article class="card"><div class="date">[Date]</div><h3>[Upcoming event]</h3><p>[Placeholder: field trip, project due date, or class event.]</p></article>
@@ -166,12 +167,13 @@ footer strong{color:var(--lava2)}
  <div class="card about">
   <div class="avatar" aria-hidden="true">MJ</div>
   <div>
-   <!-- EDIT ME: replace placeholder text -->
+   <!~~ EDIT ME: replace placeholder text ~~>
    <p class="placeholder">[Placeholder: A short welcome from Mr. Johnson – grade level, school, and what makes this class special.]</p>
    <p class="placeholder">[Placeholder: A fun fact or favorite thing about teaching in Hawaiʻi.]</p>
   </div>
  </div>
 </section>
+-->
 </main>
 
 <footer>
