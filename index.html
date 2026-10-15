@@ -62,9 +62,10 @@ main{position:relative;z-index:2;background:#000}
 /* Below the divider: black, nothing moves */
 main *,main *::before,main *::after{animation:none!important}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-main #games{display:flex;justify-content:center;padding:4rem 1.2rem 5rem}
+main #games{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1.2rem 5rem}
 .orb-row{display:grid;grid-template-columns:repeat(3,300px);justify-content:center;gap:2rem}
 @media (max-width:1060px){.orb-row{display:flex;flex-wrap:wrap}}
+.orb-school{display:flex;align-self:stretch;justify-content:center;margin-top:3rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,.12)}
 .orb-btn{display:flex;align-items:center;justify-content:center;width:clamp(220px,78vw,300px);aspect-ratio:1;border-radius:50%;background:#000 url(assets/orb-button.webp) center/cover no-repeat;text-decoration:none;box-shadow:0 0 0 2px rgba(255,200,230,.25),0 0 40px rgba(255,170,220,.25);transition:transform .2s,box-shadow .2s}
 .orb-btn:hover{transform:scale(1.03);box-shadow:0 0 0 2px rgba(255,200,230,.5),0 0 60px rgba(255,170,220,.45)}
 .orb-btn:focus-visible{outline:3px solid var(--lava3);outline-offset:6px}
@@ -170,6 +171,29 @@ footer strong{color:var(--lava2)}
   </a>
   <a class="orb-btn" style="background-image:url(assets/number-line-orb.webp)" href="https://www.mathsisfun.com/numbers/number-line-zoom.html" target="_blank" rel="noopener" aria-label="Number Line Zoom (opens in a new tab)">
    <span class="orb-title" aria-hidden="true">Number Line Zoom</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/solar-probe-orb.webp)" href="https://artsandculture.google.com/story/aQVhK-J4CvHN8w" target="_blank" rel="noopener" aria-label="Solar Probe: Parker Solar Probe in 3D on Google Arts and Culture (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Solar Probe</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/word-art-orb.webp)" href="https://wordart.com" target="_blank" rel="noopener" aria-label="Word Art: make word clouds (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Word Art</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/scoundrel-orb.webp)" href="https://scoundrel-vanilla.netlify.app" target="_blank" rel="noopener" aria-label="Scoundrel: single-player dungeon card game (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Scoundrel</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/iss-docking-orb.webp)" href="https://iss-sim.spacex.com" target="_blank" rel="noopener" aria-label="ISS Docking: SpaceX Dragon space station docking simulator (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">ISS Docking</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/quick-draw-orb.webp)" href="https://quickdraw.withgoogle.com" target="_blank" rel="noopener" aria-label="Quick Draw: doodle game from Google (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Quick Draw</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/dots-boxes-orb.webp)" href="https://www.irt.org/games/chall/c03/sub05/" target="_blank" rel="noopener" aria-label="Dots and Boxes: two-player game (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Dots &amp; Boxes</span>
+  </a>
+ </div>
+ <div class="orb-row orb-school">
+  <a class="orb-btn" style="background-image:url(assets/wheeler-orb.webp)" href="https://www.wheeler.k12.hi.us" target="_blank" rel="noopener" aria-label="Wheeler School: Major Sheldon Wheeler Elementary website (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Wheeler School</span>
   </a>
  </div>
 </section>
