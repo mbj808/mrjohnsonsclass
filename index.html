@@ -58,7 +58,8 @@ main{position:relative;z-index:2;background:#000}
 main *,main *::before,main *::after{animation:none!important}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 main #games{display:flex;justify-content:center;padding:4rem 1.2rem 5rem}
-.orb-row{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem}
+.orb-row{display:grid;grid-template-columns:repeat(3,300px);justify-content:center;gap:2rem}
+@media (max-width:1060px){.orb-row{display:flex;flex-wrap:wrap}}
 .orb-btn{display:flex;align-items:center;justify-content:center;width:clamp(220px,78vw,300px);aspect-ratio:1;border-radius:50%;background:#000 url(assets/orb-button.webp) center/cover no-repeat;text-decoration:none;box-shadow:0 0 0 2px rgba(255,200,230,.25),0 0 40px rgba(255,170,220,.25);transition:transform .2s,box-shadow .2s}
 .orb-btn:hover{transform:scale(1.03);box-shadow:0 0 0 2px rgba(255,200,230,.5),0 0 60px rgba(255,170,220,.45)}
 .orb-btn:focus-visible{outline:3px solid var(--lava3);outline-offset:6px}
@@ -155,6 +156,15 @@ footer strong{color:var(--lava2)}
   </a>
   <a class="orb-btn" style="background-image:url(assets/vector-racing-orb.webp)" href="https://harmmade.com/vectorracer/" target="_blank" rel="noopener" aria-label="Play Vector Racing (opens in a new tab)">
    <span class="orb-title" aria-hidden="true">Vector Racing</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/paper-airplanes-orb.webp)" href="https://www.foldnfly.com/10.html#Tailed-Plane" target="_blank" rel="noopener" aria-label="Paper Airplanes: fold the Tailed Plane (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Paper Airplanes</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/music-lab-orb.webp)" href="https://musiclab.chromeexperiments.com" target="_blank" rel="noopener" aria-label="Music Lab: Chrome Music Lab (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Music Lab</span>
+  </a>
+  <a class="orb-btn" style="background-image:url(assets/number-line-orb.webp)" href="https://www.mathsisfun.com/numbers/number-line-zoom.html" target="_blank" rel="noopener" aria-label="Number Line Zoom (opens in a new tab)">
+   <span class="orb-title" aria-hidden="true">Number Line Zoom</span>
   </a>
  </div>
 </section>
