@@ -48,7 +48,10 @@ body{background:transparent!important;font-family:'Nunito',system-ui,sans-serif;
 h1,h2,h3{font-family:'Bungee',Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:1.1}
 a{color:var(--lava3)}
 .bg{position:fixed;inset:0;z-index:-2;background:#120c0a url(assets/bg-poster.jpg) center/cover no-repeat}
-.bgvideo{width:100%;height:100%;object-fit:cover;display:block}
+.bgvideo{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .4s;pointer-events:none}
+.bgvideo.is-playing{opacity:1}
+/* Never show iOS/WebKit native play overlay; the poster behind (.bg) shows instead */
+.bgvideo::-webkit-media-controls,.bgvideo::-webkit-media-controls-panel,.bgvideo::-webkit-media-controls-overlay-play-button,.bgvideo::-webkit-media-controls-play-button,.bgvideo::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none;opacity:0!important}
 .bg-overlay{position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(10,6,5,.7) 0%,rgba(10,6,5,.3) 50%,rgba(10,6,5,.6) 75%,rgba(10,6,5,.85) 100%)}
 main{position:relative;z-index:2;background:#000}
 /* Below the divider: black, nothing moves */
@@ -128,7 +131,7 @@ footer strong{color:var(--lava2)}
 </style>
 </head>
 <body>
-<div class="bg" aria-hidden="true"><video class="bgvideo" autoplay muted loop playsinline preload="auto" poster="assets/bg-poster.jpg"><source src="assets/bg.mp4" type="video/mp4"></video></div>
+<div class="bg" aria-hidden="true"><video class="bgvideo" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="assets/bg-poster.jpg"><source src="assets/bg.mp4" type="video/mp4"></video></div>
 <div class="bg-overlay" aria-hidden="true"></div>
 <canvas id="embers" aria-hidden="true"></canvas>
 <nav aria-label="Main"><a href="#games">Games</a><a href="https://photos.mrjohnsonsclass.org">Photos</a></nav>
@@ -186,6 +189,16 @@ footer strong{color:var(--lava2)}
  <p>Contact Mr. Johnson: <a href="mailto:mrjohnson808@gmail.com">mrjohnson808@gmail.com</a></p>
 </footer>
 
+<script>
+(function(){
+ var v=document.querySelector('.bgvideo');if(!v)return;
+ v.muted=true;v.defaultMuted=true;v.setAttribute('muted','');v.controls=false;
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause();return;}
+ v.addEventListener('playing',function(){v.classList.add('is-playing')});
+ function go(){var p=v.play();if(p&&p.catch)p.catch(function(){v.classList.remove('is-playing')});}
+ go();document.addEventListener('visibilitychange',function(){if(!document.hidden)go()});
+})();
+</script>
 <script>
 (function(){
  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
