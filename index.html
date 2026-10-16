@@ -135,6 +135,21 @@ footer strong{color:var(--lava2)}
  #embers{display:none}
  .bgvideo{display:none}
 }
+main .cnews{max-width:820px;padding:3.2rem 1.2rem 0;text-align:left}
+.cnews h2{font-size:clamp(1.6rem,4.5vw,2.4rem);margin-bottom:1.4rem}
+.cnews-list{display:grid;gap:1rem}
+.cnews-card{background:#0d0907;border:1px solid #ff6d0040;border-left:5px solid var(--lava2);border-radius:12px;padding:1rem 1.2rem}
+.cnews-date{font-family:'Bungee',Impact,sans-serif;font-weight:400;font-size:1.05rem;color:var(--lava2);margin-bottom:.35rem;letter-spacing:.03em}
+.cnews-card p{font-family:'Nunito',system-ui,sans-serif;color:#fff;font-size:1.05rem;line-height:1.55;margin:0}
+.cnews-more{display:inline-block;margin-top:1rem;color:var(--lava3);font-weight:700;text-decoration:none}
+.cnews-more:hover,.cnews-more:focus-visible{text-decoration:underline}
+@media (max-width:500px){.cnews-card{padding:.9rem 1rem}.cnews-card p{font-size:1rem}}
+.cnews[hidden],.cnews [hidden]{display:none!important}
+.cnews-card ul,.cnews-card ol{font-family:'Nunito',system-ui,sans-serif;color:#fff;font-size:1.05rem;line-height:1.55;margin:.3rem 0 .3rem 1.4rem;padding:0}
+.cnews-card p+p,.cnews-card p+ul,.cnews-card ul+p{margin-top:.5rem}
+.cnews-card h4{font-family:'Nunito',system-ui,sans-serif;font-weight:700;color:var(--lava3);font-size:1.1rem;margin:.6rem 0 .2rem}
+.cnews-card a{color:var(--lava3);word-break:break-word}
+.cnews-old{display:grid;gap:1rem;margin-top:1rem}
 </style>
 </head>
 <body>
@@ -151,6 +166,12 @@ footer strong{color:var(--lava2)}
 <div class="lava-river" aria-hidden="true"></div>
 
 <main>
+<section id="class-news" class="cnews" aria-labelledby="cnews-h" hidden>
+ <h2 id="cnews-h">Class News</h2>
+ <div class="cnews-list" id="cnews-list"></div>
+ <div class="cnews-old" id="cnews-old" hidden></div>
+ <a class="cnews-more" id="cnews-more" href="#cnews-old" hidden aria-expanded="false" aria-controls="cnews-old">See older news &rarr;</a>
+</section>
 <section id="games">
  <h2 class="sr-only">Games</h2>
  <div class="orb-row">
@@ -263,5 +284,51 @@ footer strong{color:var(--lava2)}
 })();
 </script>
 <script data-goatcounter="https://mbj808.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+/* Class News: reads the "Class News" Google Doc (link-viewable via the Class Photos folder). */
+(function(){
+var DOC_ID='1-TWJ0dPG-8Pf4uXYFwMxmGt_r9uwa7jmShTTNqVUDDs';
+var sec=document.getElementById('class-news');if(!sec||!window.fetch||!window.DOMParser)return;
+fetch('https://docs.google.com/document/d/'+DOC_ID+'/export?format=html',{cache:'no-store'})
+.then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(html){
+ var doc=new DOMParser().parseFromString(html,'text/html');
+ var css=Array.prototype.map.call(doc.querySelectorAll('style'),function(s){return s.textContent}).join('');
+ var bold={},ital={},m,re=/\.([\w-]+)\{([^}]*)\}/g;
+ while((m=re.exec(css))){if(/font-weight:\s*(700|bold)/.test(m[2]))bold[m[1]]=1;if(/font-style:\s*italic/.test(m[2]))ital[m[1]]=1}
+ function has(el,map){for(var i=0;i<el.classList.length;i++)if(map[el.classList[i]])return true;return false}
+ function safeHref(h){h=h||'';var g=h.match(/^https:\/\/www\.google\.com\/url\?q=([^&]+)/);if(g){try{h=decodeURIComponent(g[1])}catch(e){}}
+  return /^(https?:|mailto:)/i.test(h)?h:null}
+ function inline(src,out){
+  Array.prototype.forEach.call(src.childNodes,function(n){
+   if(n.nodeType===3){out.appendChild(document.createTextNode(n.nodeValue));return}
+   if(n.nodeType!==1)return;var t=n.tagName,dst=out;
+   if(t==='BR'){out.appendChild(document.createElement('br'));return}
+   if(t==='A'){var h=safeHref(n.getAttribute('href'));if(h){dst=document.createElement('a');dst.href=h;dst.target='_blank';dst.rel='noopener noreferrer';out.appendChild(dst)}}
+   else if(t==='SCRIPT'||t==='STYLE'||t==='IMG'||t==='IFRAME')return;
+   if(t==='B'||t==='STRONG'||has(n,bold)){var b=document.createElement('strong');dst.appendChild(b);dst=b}
+   if(t==='I'||t==='EM'||has(n,ital)){var i=document.createElement('em');dst.appendChild(i);dst=i}
+   inline(n,dst)})}
+ function block(n){var t=n.tagName,el;
+  if(t==='UL'||t==='OL'){el=document.createElement(t.toLowerCase());
+   Array.prototype.forEach.call(n.children,function(li){if(li.tagName!=='LI')return;var x=document.createElement('li');inline(li,x);if(x.textContent.trim())el.appendChild(x)});
+   return el.children.length?el:null}
+  if(/^H[3-6]$/.test(t)||t==='P'||t==='H1'){if(!n.textContent.trim())return null;el=document.createElement(t==='P'?'p':'h4');inline(n,el);return el}
+  return null}
+ var posts=[],cur=null;
+ Array.prototype.forEach.call(doc.body.children,function(n){
+  if(n.tagName==='H2'){var d=n.textContent.trim();if(!d){cur=null;return}cur={date:d,body:[]};posts.push(cur);return}
+  if(!cur)return;var b=block(n);if(b)cur.body.push(b)});
+ posts=posts.filter(function(p){return p.body.length});
+ if(!posts.length)return;
+ function card(p){var a=document.createElement('article');a.className='cnews-card';
+  var h=document.createElement('h3');h.className='cnews-date';h.textContent=p.date;a.appendChild(h);
+  p.body.forEach(function(b){a.appendChild(b)});return a}
+ var list=document.getElementById('cnews-list'),old=document.getElementById('cnews-old'),more=document.getElementById('cnews-more');
+ posts.forEach(function(p,i){(i<3?list:old).appendChild(card(p))});
+ if(posts.length>3){more.hidden=false;more.onclick=function(e){e.preventDefault();old.hidden=false;more.hidden=true;more.setAttribute('aria-expanded','true')}}
+ sec.hidden=false;
+}).catch(function(){});
+})();
+</script>
 </body>
 </html>
