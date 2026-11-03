@@ -164,6 +164,16 @@ if(d=='sat'||d=='sun'||d=='weekend')d='wknd';
 if(!/^(mon|tue|wed|thu|fri|wknd)$/.test(d||'')){var w='';try{w=new Intl.DateTimeFormat('en-US',{weekday:'short',timeZone:'Pacific/Honolulu'}).format(new Date())}catch(e){w=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date(Date.now()-36e6).getUTCDay()]}
 d={Mon:'mon',Tue:'tue',Wed:'wed',Thu:'thu',Fri:'fri'}[w]||'wknd'}
 document.documentElement.setAttribute('data-day',d)})();</script>
+<style id="daybtn">
+html[data-day]:not([data-day=mon]) .orb-btn{box-shadow:none;border:2px solid rgba(255,255,255,.22)}
+html[data-day]:not([data-day=mon]) .orb-btn:hover{box-shadow:0 0 0 2px rgba(255,255,255,.35)}
+html[data-day]:not([data-day=mon]) .orb-title{text-shadow:0 2px 6px rgba(0,0,0,.6)}
+html[data-day=tue] .orb-btn{background:radial-gradient(circle at 35% 30%,#1f7fb8,#0b4a7a 60%,#062f52)!important}
+html[data-day=wed] .orb-btn{background:radial-gradient(circle at 35% 30%,#2e8a52,#155a32 60%,#0a3a1f)!important}
+html[data-day=thu] .orb-btn{background:linear-gradient(160deg,#c9653a,#a8405a 55%,#6e2347)!important}
+html[data-day=fri] .orb-btn{background:radial-gradient(circle at 35% 30%,#5a3496,#35206a 60%,#1c103f)!important}
+html[data-day=wknd] .orb-btn{background:radial-gradient(circle at 35% 30%,#3a3a3a,#1e1e1e 65%,#111)!important;border-color:rgba(255,255,255,.18)}
+</style>
 </head>
 <body>
 <script>/* Volcano video + embers only on Mondays (Hawaii time); other days never load them */
